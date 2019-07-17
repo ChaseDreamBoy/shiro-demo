@@ -1,5 +1,5 @@
 
-# 一、简介
+<h1> 一、简介</h1>
 官方源码：https://github.com/apache/shiro
 <br />
 官网：shiro.apache.org
@@ -17,11 +17,11 @@ Shiro对以上功能都进行了很好的支持，它可以非常容易的开发
 
 
 
-# 二、组件结构
+<h1>二、组件结构</h1>
 外部架构
 Shiro有三个主要的概念，Subject、SecurityManager 和 Realms。
 
-##### 1、Subject
+<h4>1、Subject</h4> 
 Subject 就是与系统交互的当前”用户”，用户不仅仅是人，也可以是第三方服务，爬虫等正在与系统交互的任何事物。
 <br />
 获取 Subject 代码：
@@ -31,7 +31,7 @@ Subject currentUser = SecurityUtils.getSubject();
 
 在获取了Subject对象之后，就可以执行包括登录、登出、获取会话、权限校验等操作。Shiro的简单易用的API，使得我们在程序的任何地方都能很方便地获取当前登录用户，并进行登录用户的各项基本操作。
 
-##### 2、SecurityManager
+<h4>2、SecurityManager</h4>
 <p>
 SecurityManager 是Shiro架构的核心，协调内部各个安全组件之间的交互，通常情况下，一旦SecurityManager和它的内部各个组件被配置好之后就不会再用到，开发者通常是查看Subject 的API。
 </p>
@@ -42,7 +42,7 @@ SecurityManager 是Shiro架构的核心，协调内部各个安全组件之间�
 SecurityManager则管理所有用户的安全操作，它是Shiro框架的核心。一旦其初始化配置完成，我们就不会再调用其相关API了，而是将精力集中在了Subject相关的权限操作上了。
 </p>
 
-##### 3、Realms
+<h4>3、Realms</h4>
 <p>
 Realms 是 Shiro 和用户的应用程序之间扮演着桥梁和连接器的作用。当需要验证或者授权的时候，Shiro从一个或者多个配置的Realms中查找。
 </p>
@@ -52,57 +52,118 @@ Realms 是 Shiro 和用户的应用程序之间扮演着桥梁和连接器的作
 <p>
 Shiro提供了即用的Realm用来连接到各种安全的数据源，像LDAP, 关系型数据库(JDBC), 文本配置的INI和properties文件等。 用户可以插入自己的Realm 实现，如果默认的Realm 不能满足需求的话。
 </p>
+<p>
+<strong>Realm UML 图</strong>
 
-##### 4、Subject、SecurityManager 和 Realms 的关系图
-![Alt text](https://github.com/ChaseDreamBoy/shiro-demo/blob/master/doc/image/Subject-SecurityManager-Realms.png "Optional title")
+![Realm UML 图](https://github.com/ChaseDreamBoy/shiro-demo/blob/master/doc/image/Realm.png "Realm 图")
+
+</p>
 
 
-**注意：Shiro不会去维护用户、维护权限；这些需要我们自己去设计/提供；然后通过相应的接口注入给Shiro即可。**
+<h4>4、Subject、SecurityManager 和 Realms 的关系图</h4>
+
+![Subject、SecurityManager 和 Realms 的关系图](https://github.com/ChaseDreamBoy/shiro-demo/blob/master/doc/image/Subject-SecurityManager-Realms.png "Subject、SecurityManager 和 Realms 的关系图")
+
+<p><strong>注意：Shiro不会去维护用户、维护权限；这些需要我们自己去设计/提供；然后通过相应的接口注入给Shiro即可。</strong></p>
 
 
-# 三、详细架构
+<h1>三、详细架构</h1>
 
-Subject：主体，可以看到主体可以是任何可以与应用交互的“用户”；
+<p>
+<strong>shiro 详细架构图</strong>
 
-SecurityManager：相当于SpringMVC中的DispatcherServlet或者Struts2中的FilterDispatcher；是Shiro的心脏；所有具体的交互都通过SecurityManager进行控制；它管理着所有Subject、且负责进行认证和授权、及会话、缓存的管理。
+![shiro 详细架构图](https://github.com/ChaseDreamBoy/shiro-demo/blob/master/doc/image/DetailedArchitecture.png "shiro 详细架构图")
 
-Authenticator：认证器，负责主体认证的，这是一个扩展点，如果用户觉得Shiro默认的不好，可以自定义实现；其需要认证策略（Authentication Strategy），即什么情况下算用户认证通过了；
+</p>
 
+<p>
+<strong>Subject：</strong>
+<span>主体，可以看到主体可以是任何可以与应用交互的“用户”。</span>
+</p>
+
+
+<p>
+<strong>SecurityManager：</strong>
+<span>相当于SpringMVC中的DispatcherServlet或者Struts2中的FilterDispatcher；是Shiro的心脏；所有具体的交互都通过SecurityManager进行控制；它管理着所有Subject、且负责进行认证和授权、及会话、缓存的管理。</span>
+</p>
+
+<p>
+<strong>Authenticator：</strong>
+<span>认证器，负责主体认证的，这是一个扩展点，如果用户觉得Shiro默认的不好，可以自定义实现；其需要认证策略（Authentication Strategy），即什么情况下算用户认证通过了；</span>
+</p>
+
+<p>
+<strong></strong>
+<span></span>
+</p>
 Authorizer：授权器，或者访问控制器，用来决定主体是否有权限进行相应的操作；即控制着用户能访问应用中的哪些功能；
 
+<p>
+<strong></strong>
+<span></span>
+</p>
 Realm：可以有1个或多个Realm，可以认为是安全实体数据源，即用于获取安全实体的；可以是JDBC实现，也可以是LDAP实现，或者内存实现等等；由用户提供；注意：Shiro不知道你的用户/权限存储在哪及以何种格式存储；所以我们一般在应用中都需要实现自己的Realm；
 
+<p>
+<strong></strong>
+<span></span>
+</p>
 Subject及Realm，分别是主体及验证主体的数据源。
 
+<p>
+<strong></strong>
+<span></span>
+</p>
 Session：Shiro提供一个权限的企业级Session解决方案，可以运行在简单的命令行或者是智能手机平台上，也可以工作在大型的集群应用上。
 以往我们需要使用Session的一些特性支持时，往往只能将服务部署在web容器或者EJB的Session特性。
 Shiro的Session管理方案比上述两种方案都更简单，而且他可以运行在任何应用中，与容器无关。
 在Shiro中，session的生命周期都在SessionManager中进行管理
 
-SessionManager：如果写过Servlet就应该知道Session的概念，Session呢需要有人去管理它的生命周期，这个组件就是SessionManager；而Shiro并不仅仅可以用在Web环境，也可以用在如普通的JavaSE环境、EJB等环境；所有呢，Shiro就抽象了一个自己的Session来管理主体与应用之间交互的数据；这样的话，比如我们在Web环境用，刚开始是一台Web服务器；接着又上了台EJB服务器；这时想把两台服务器的会话数据放到一个地方，这个时候就可以实现自己的分布式会话（如把数据放到Memcached服务器）；
+<p>
+<strong>SessionManager：</strong>
+<span>如果写过Servlet就应该知道Session的概念，Session呢需要有人去管理它的生命周期，这个组件就是SessionManager；而Shiro并不仅仅可以用在Web环境，也可以用在如普通的JavaSE环境、EJB等环境；所有呢，Shiro就抽象了一个自己的Session来管理主体与应用之间交互的数据；这样的话，比如我们在Web环境用，刚开始是一台Web服务器；接着又上了台EJB服务器；这时想把两台服务器的会话数据放到一个地方，这个时候就可以实现自己的分布式会话（如把数据放到Memcached服务器）；</span>
+</p>
 
-SessionDAO：DAO大家都用过，数据访问对象，用于会话的CRUD，比如我们想把Session保存到数据库，那么可以实现自己的SessionDAO，通过如JDBC写到数据库；比如想把Session放到Memcached中，可以实现自己的Memcached SessionDAO；另外SessionDAO中可以使用Cache进行缓存，以提高性能；
+<p>
+<strong>SessionDAO：</strong>
+<span>DAO大家都用过，数据访问对象，用于会话的CRUD，比如我们想把Session保存到数据库，那么可以实现自己的SessionDAO，通过如JDBC写到数据库；比如想把Session放到Memcached中，可以实现自己的Memcached SessionDAO；另外SessionDAO中可以使用Cache进行缓存，以提高性能；</span>
+</p>
 
-CacheManager：缓存控制器，来管理如用户、角色、权限等的缓存的；因为这些数据基本上很少去改变，放到缓存中后可以提高访问的性能
+<p>
+<strong>CacheManager：</strong>
+<span>缓存控制器，来管理如用户、角色、权限等的缓存的；因为这些数据基本上很少去改变，放到缓存中后可以提高访问的性能</span>
+</p>
 
-Cryptography：密码模块，Shiro提高了一些常见的加密组件用于如密码加密/解密的。
 
-The SecurityManager
-SecurityManager 执行安全操作，管理用户的状态，Shiro的默认SecurityManager 实现包括以下部分
-Authentication
-Authorization
-Session Management
-Cache Management
-Realm coordination
-Event propagation
-“Remember Me”
-Services
-Subject creation
-Logout 
-and more.
+<p>
+<strong>Cryptography：</strong>
+<span>密码模块，Shiro提高了一些常见的加密组件用于如密码加密/解密的。</span>
+</p>
+
+
+<p>
+<strong>The SecurityManager</strong>
+<span>SecurityManager 执行安全操作，管理用户的状态，Shiro的默认SecurityManager 实现包括以下部分</span>
+<ul>
+<li>Authentication</li>
+<li>Authorization</li>
+<li>Session Management</li>
+<li>Cache Management</li>
+<li>Realm coordination</li>
+<li>Event propagation</li>
+<li>Remember Me</li>
+<li>Services</li>
+<li>Subject creation</li>
+<li>Logout </li>
+<li>and more</li>
+</ul>
+</p>
+
+<p>
 为了简化配置并且使应用灵活，Shiro的实现都是高度模块化设计的。 
 SecurityManager 通常扮演一个轻量的容器，代表其他组件，这个装饰模式的设计可以通过上面的架构图看出。
 其他组件各司其职，而SecurityManager 负责协调各个组件。
+</p>
 
 
 
