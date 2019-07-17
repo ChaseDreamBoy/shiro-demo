@@ -70,6 +70,7 @@ public class ShiroConfig {
         filterFactoryBean.setFilters(filtersMap);
 
         Map<String, String> hashMap = new LinkedHashMap<>();
+        // 当请求的 url 匹配到 LinkedHashMap 中的第一条记录后，不在匹配后面的记录
         // anon - org.apache.shiro.web.filter.authc.AnonymousFilter
         hashMap.put("/login", "anon");
         hashMap.put("/js/**", "anon");
@@ -82,6 +83,7 @@ public class ShiroConfig {
 //        hashMap.put("/company/list", "customShiroFilter")
 //        hashMap.put("/company/**", "checkPermission")
         // authc - org.apache.shiro.web.filter.authc.FormAuthenticationFilter
+        // 同一资源，多条过滤器链  顺序执行
         hashMap.put("/company/**", "login,checkPermission");
 
         // 需要登录权限
