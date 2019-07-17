@@ -54,7 +54,7 @@ Shiro提供了即用的Realm用来连接到各种安全的数据源，像LDAP, �
 </p>
 
 ##### 4、Subject、SecurityManager 和 Realms 的关系图
-![Alt text](../image/Subject-SecurityManager-Realms.png "Optional title")
+![Alt text](https://github.com/ChaseDreamBoy/shiro-demo/blob/master/doc/image/Subject-SecurityManager-Realms.png "Optional title")
 
 
 **注意：Shiro不会去维护用户、维护权限；这些需要我们自己去设计/提供；然后通过相应的接口注入给Shiro即可。**
