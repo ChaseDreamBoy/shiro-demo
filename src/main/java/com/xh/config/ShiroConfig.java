@@ -32,6 +32,24 @@ import redis.clients.jedis.JedisPoolConfig;
 import javax.servlet.Filter;
 
 /**
+ *
+ 过滤器链等
+ org.apache.shiro.spring.web.ShiroFilterFactoryBean#createFilterChainManager()
+
+
+
+
+ 过滤器 权限有顺序
+
+ org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver#getChain()
+ PathMatchingFilter login auth
+
+ 刷新 shiro
+ 资源  角色 权限
+ ShiroFilterFactoryBean - 93
+
+ 使用注解需要启用代理
+
  * @author xiaohe
  * @version V1.0.0
  */
